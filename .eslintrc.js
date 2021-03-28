@@ -151,7 +151,7 @@ module.exports = {
     "array-bracket-spacing": ["error", "never"],
     "array-bracket-newline": ["error", "consistent"],
     "array-element-newline": ["error", "consistent"],
-    "no-console": "error",
+    "no-console": "off",
     "no-extra-boolean-cast": "error",
     "no-var": "error",
     "prefer-const": "error",
@@ -199,7 +199,7 @@ module.exports = {
     "react/jsx-indent": ["error", 2],
     "react/prop-types": 0,
     "react-hooks/rules-of-hooks": "error",
-    "jsx-quotes": ["error", "prefer-single"],
+    "jsx-quotes": ["error", "prefer-double"],
     "quote-props": ["error", "as-needed"],
     "comma-dangle": [
       "error",
