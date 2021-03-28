@@ -6,8 +6,6 @@ import type { NotesResponse } from "./api/notes";
 export default function Home(props: { notes: Record<string, string> }) {
   return (
     <Layout>
-      <h2 className="mb-3">Notely</h2>
-      <p>Your favorite note taking app</p>
       <pre>{JSON.stringify(props, null, 2)}</pre>
     </Layout>
   );
@@ -15,9 +13,7 @@ export default function Home(props: { notes: Record<string, string> }) {
 
 export async function getStaticProps() {
   try {
-    const response = await axiosInstance.get<NotesResponse>(
-      "http://localhost:3000/api/notes"
-    );
+    const response = await axiosInstance.get<NotesResponse>("/api/notes");
     const notes = response.data;
 
     return {
@@ -27,5 +23,15 @@ export async function getStaticProps() {
     };
   } catch (error) {
     console.error(error);
+
+    return {
+      props: {
+        notes: {
+          content: "notes here",
+          createdAt: "today",
+          updatedAt: "a moment ago",
+        },
+      },
+    };
   }
 }
