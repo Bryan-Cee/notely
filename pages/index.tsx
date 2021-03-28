@@ -1,7 +1,6 @@
-import Layout from "@/Components/Layout";
-import { axiosInstance } from "@/service/api";
+import type { GetStaticProps } from "next";
 
-import type { NotesResponse } from "./api/notes";
+import Layout from "@/Components/Layout";
 
 export default function Home(props: { notes: Record<string, string> }) {
   return (
@@ -12,30 +11,13 @@ export default function Home(props: { notes: Record<string, string> }) {
 }
 
 export function getStaticProps() {
-  try {
-    // const response = await axiosInstance.get<NotesResponse>("/api/notes");
-    // const notes = response.data;
-
-    return {
-      props: {
-        notes: {
-          content: "notes here",
-          createdAt: "today",
-          updatedAt: "a moment ago and this is an error",
-        },
+  return {
+    props: {
+      notes: {
+        content: "notes here",
+        createdAt: "today",
+        updatedAt: "a moment ago and this is an error",
       },
-    };
-  } catch (error) {
-    console.error(error);
-
-    return {
-      props: {
-        notes: {
-          content: "notes here",
-          createdAt: "today",
-          updatedAt: "a moment ago and this is an error",
-        },
-      },
-    };
-  }
+    },
+  };
 }
