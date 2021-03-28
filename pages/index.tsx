@@ -11,14 +11,18 @@ export default function Home(props: { notes: Record<string, string> }) {
   );
 }
 
-export async function getStaticProps() {
+export function getStaticProps() {
   try {
-    const response = await axiosInstance.get<NotesResponse>("/api/notes");
-    const notes = response.data;
+    // const response = await axiosInstance.get<NotesResponse>("/api/notes");
+    // const notes = response.data;
 
     return {
       props: {
-        notes,
+        notes: {
+          content: "notes here",
+          createdAt: "today",
+          updatedAt: "a moment ago and this is an error",
+        },
       },
     };
   } catch (error) {
@@ -29,7 +33,7 @@ export async function getStaticProps() {
         notes: {
           content: "notes here",
           createdAt: "today",
-          updatedAt: "a moment ago",
+          updatedAt: "a moment ago and this is an error",
         },
       },
     };
