@@ -1,18 +1,22 @@
 import dynamic from "next/dynamic";
 
 import Layout from "@/components/Layout";
+import type { EditorProps } from "@/components/TextEditor";
 import { axiosInstance } from "@/service/api";
 
 import type { NotesResponse } from "./api/notes";
 
-const TextEditor = dynamic(() => import("../components/TextEditor/index"), {
-  ssr: false,
-});
+const TextEditor = dynamic<EditorProps>(
+  () => import("../components/TextEditor"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Home() {
   return (
     <Layout>
-      <TextEditor data={"<p>Hello world</p>"} onChange={console.log} />
+      <TextEditor data="<p>Hello world</p>" onChange={console.log} />
     </Layout>
   );
 }
@@ -20,9 +24,11 @@ export default function Home() {
 export async function getStaticProps() {
   try {
     const response = await axiosInstance.get<NotesResponse>(
-      "http://localhost:3000/api/notes"
+      "https://my-json-server.typicode.com/Bryan-cee/notely-dummy-data/notes"
     );
     const notes = response.data;
+
+    console.log(notes);
 
     return {
       props: {

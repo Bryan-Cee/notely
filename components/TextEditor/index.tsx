@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import BubbleEditor from "ckeditor5-custom-build/build/ckeditor";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import BubbleEditor from "ckeditor5-custom-build/build/ckeditor";
 import React from "react";
 
 const editorConfiguration = {
@@ -34,19 +33,20 @@ const editorConfiguration = {
   },
 };
 
-interface EditorProps {
-  onChange: Function;
+export interface EditorProps {
   data: string;
+  onChange: (args: unknown) => void;
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
   return (
     <CKEditor
-      editor={BubbleEditor}
       config={editorConfiguration}
       data={props.data}
-      onChange={(event, editor) => {
+      editor={BubbleEditor as unknown}
+      onChange={(event: unknown, editor: { getData: () => string }) => {
         const data = editor.getData();
+
         props.onChange({ event, editor, data });
       }}
     />
