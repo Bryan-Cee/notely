@@ -1,14 +1,18 @@
-import Layout from "@/Components/Layout";
+import dynamic from "next/dynamic";
+
+import Layout from "@/components/Layout";
 import { axiosInstance } from "@/service/api";
 
 import type { NotesResponse } from "./api/notes";
 
-export default function Home(props: { notes: Record<string, string> }) {
+const TextEditor = dynamic(() => import("../components/TextEditor/index"), {
+  ssr: false,
+});
+
+export default function Home() {
   return (
     <Layout>
-      <h2 className="mb-3">Notely</h2>
-      <p>Your favorite note taking app</p>
-      <pre>{JSON.stringify(props, null, 2)}</pre>
+      <TextEditor data={"<p>Hello world</p>"} onChange={console.log} />
     </Layout>
   );
 }
