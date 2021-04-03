@@ -1,3 +1,4 @@
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import BubbleEditor from "ckeditor5-custom-build/build/ckeditor";
 import React from "react";
@@ -38,16 +39,26 @@ export interface EditorProps {
   onChange: (args: unknown) => void;
 }
 
-const Editor: React.FC<EditorProps> = (props) => {
+const Editor: React.FC<EditorProps> = ({ onChange, data }) => {
   return (
     <CKEditor
-      config={editorConfiguration}
-      data={props.data}
-      editor={BubbleEditor as unknown}
-      onChange={(event: unknown, editor: { getData: () => string }) => {
+      data={data}
+      editor={ClassicEditor as unknown}
+      onBlur={(event, editor) => {
+        console.log("Blur.", editor);
+      }}
+      onChange={(event, editor: { getData: () => void }) => {
         const data = editor.getData();
 
-        props.onChange({ event, editor, data });
+        onChange(data);
+        console.log(data);
+      }}
+      onFocus={(event, editor) => {
+        console.log("Focus.", editor);
+      }}
+      onReady={(editor) => {
+        // You can store the "editor" and use when it is needed.
+        console.log("Editor is ready to use!", editor);
       }}
     />
   );
